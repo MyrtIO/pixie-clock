@@ -1,11 +1,6 @@
 /****************************************************************************/
-//  Function: Cpp file for TroykaRTC
 //  Hardware: DS1307
-//  Arduino IDE: Arduino-1.8.9
-//  Author:  Igor Dementiev
-//  Date:    May 10,2019
-//  Version: v1.2.0
-//  by www.amperka.ru
+//  Author:  Igor Dementiev, Mikhael Khristik
 /****************************************************************************/
 
 #include <Wire.h>
@@ -70,7 +65,7 @@ void RTC::read() {
     _year     = BcdToDec(Wire.read()) + 2000;
 }
 
-// write the time that includes the date to the RTC chip 
+// write the time that includes the date to the RTC chip
 void RTC::set(const char* compileTimeStamp) {
     int i = 0;
 //   Serial.println(compileTimeStamp);
@@ -252,7 +247,7 @@ void RTC::setWeekDay(uint8_t weekDay) {
 
 // Set RAM register (From 0x08 to 0x3F) byte value
 void RTC::setRAMData(uint8_t reg, uint8_t data) {
-    if (reg < 0x08 || reg > 0x3F)
+    if (reg < DS1307_RAM_START || reg > DS1307_RAM_END)
         return;
 
     Wire.beginTransmission(DS1307_I2C_ADDRESS);
@@ -261,9 +256,22 @@ void RTC::setRAMData(uint8_t reg, uint8_t data) {
     Wire.endTransmission();
 }
 
+// Set RAM register (From 0x08 to 0x3F) byte value
+void RTC::setRAMData(uint8_t start_reg, uint8_t *data, uint8_t length) {
+    if (start_reg < DS1307_RAM_START ||
+        start_reg > DS1307_RAM_END ||
+        start_reg + length > DS1307_RAM_END) return;
+    Wire.beginTransmission(DS1307_I2C_ADDRESS);
+    for (uint8_t i = 0; i < length; i++) {
+      Wire.write(start_reg + i);
+      Wire.write(data[i]);
+    }
+    Wire.endTransmission();
+}
+
 // Get RAM register (From 0x08 to 0x3F) byte value
 uint8_t RTC::getRAMData(uint8_t reg) {
-    if (reg < 0x08 || reg > 0x3F)
+    if (reg < DS1307_RAM_START || reg > DS1307_RAM_END)
         return 0;
 
     Wire.beginTransmission(DS1307_I2C_ADDRESS);

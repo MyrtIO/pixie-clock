@@ -1,20 +1,16 @@
 /****************************************************************************/
-//  Function: Header file for TroykaRTC
 //  Hardware: DS1307
-//  Arduino IDE: Arduino-1.8.9
-//  Author:  Igor Dementiev
-//  Date:    May 10,2019
-//  Version: v1.2.0
-//  by www.amperka.ru
+//  Authors:  Igor Dementiev, Mikhael Khrustik
 /****************************************************************************/
-#ifndef TROYKA_RTC_H_
-#define TROYKA_RTC_H_
+#pragma once
 
 #include <Arduino.h>
 
 #define SECONDS_FROM_1970_TO_2000 946684800
 
 #define DS1307_I2C_ADDRESS 0x68
+#define DS1307_RAM_START 0x08
+#define DS1307_RAM_END 0x3F
 
 #define MONDAY      1
 #define TUESDAY     2
@@ -59,6 +55,7 @@ public:
     uint32_t getUnixTime();
 
     void setRAMData(uint8_t reg, uint8_t data);
+    void setRAMData(uint8_t start_reg, uint8_t *data, uint8_t length);
     uint8_t getRAMData(uint8_t reg);
 
 private:
@@ -75,5 +72,3 @@ private:
     uint8_t _month;
     uint16_t _year;
 };
-
-#endif  // TROYKA_RTC_H_

@@ -1,4 +1,4 @@
 #include "platform.h"
 
-ioProvide(LEDPlatform);
-ioProvide(RTCPlatform);
+IO_PROVIDE(LEDPlatform);
+IO_PROVIDE(RTCPlatform);

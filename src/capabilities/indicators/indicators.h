@@ -30,5 +30,6 @@ private:
   uint8_t currentHour_ = 0;
   uint8_t currentMinute_ = 0;
 
-  bool handleSetTime_(IOActionRequest* request);
+  bool handleSetColor_(IOActionRequest* request);
+  bool handleSetBrightness_(IOActionRequest* request);
 };

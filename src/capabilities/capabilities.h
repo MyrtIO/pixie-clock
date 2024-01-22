@@ -4,5 +4,5 @@
 #include "clock/clock.h"
 #include "persistent_config/persistent_config.h"
 
-ioProvideExtern(ClockCapability);
-ioProvideExtern(PersistentConfigCapability);
+IO_PROVIDE_EXTERN(ClockCapability);
+IO_PROVIDE_EXTERN(PersistentConfigCapability);

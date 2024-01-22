@@ -3,28 +3,28 @@
 #include <platform.h>
 #include <capabilities.h>
 
-SerialRequestProvider serial(&Serial);
+SerialRequestProvider serialProvider(&Serial);
 IODispatcher io;
 
 void setup() {
   Serial.begin(9600);
-  serial.setup();
-  serial.setListener(&io);
+  serialProvider.setup();
+  serialProvider.setListener(&io);
   io.init()
     ->platform(
-      ioInject(LEDPlatform),
-      ioInject(RTCPlatform)
+      IO_INJECT(LEDPlatform),
+      IO_INJECT(RTCPlatform)
     )
     ->capabilities(
-      ioInject(ClockCapability),
-      ioInject(PersistentConfigCapability)
+      IO_INJECT(ClockCapability),
+      IO_INJECT(PersistentConfigCapability)
     )
     ->defaultCapability(
-      ioInject(ClockCapability)
+      IO_INJECT(ClockCapability)
     );
 }
 
 void loop() {
-  serial.handle();
+  serialProvider.handle();
   io.handle();
 }

@@ -1,4 +1,4 @@
 #include "capabilities.h"
 
-ioProvide(ClockCapability);
-ioProvide(PersistentConfigCapability);
+IO_PROVIDE(ClockCapability);
+IO_PROVIDE(PersistentConfigCapability);

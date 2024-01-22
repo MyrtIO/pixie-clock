@@ -9,3 +9,7 @@ build:
 .PHONY: flash
 flash:
 	pio run --target upload
+
+.PHONY: terminal
+terminal:
+	python tools/terminal.py

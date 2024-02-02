@@ -1,8 +1,8 @@
 #include "dispatcher.h"
 
-IODevice* IODispatcher::init() {
-  capabilities_ = new IODevice();
-  return capabilities_;
+IODevice* IODispatcher::setup() {
+  device_ = new IODevice();
+  return device_;
 }
 
 void IODispatcher::onRequest(IORequest* request) {
@@ -11,22 +11,26 @@ void IODispatcher::onRequest(IORequest* request) {
   if (length < 2) {
     return;
   }
-  for (uint8_t i = 0; i < capabilities_->count; i++) {
-    if (capabilities_->list[i]->code == payload[0]) {
-      runAction_(request, capabilities_->list[i]);
+  for (uint8_t i = 0; i < device_->featuresCount; i++) {
+    // Serial.write(device_->featureList[i]->code);
+    if (device_->featureList[i]->code() == payload[0]) {
+      runAction_(request, device_->featureList[i]);
       return;
     }
   }
 }
 
 void IODispatcher::handle() {
-  for (uint8_t i = 0; i < capabilities_->count; i++) {
-      capabilities_->list[i]->handleBackground();
+  for (uint8_t i = 0; i < device_->platformsCount; i++) {
+    device_->platformList[i]->onLoopStart();
   }
-  capabilities_->idle->handlePrimary();
+  device_->idleFeature->onTask();
+  for (uint8_t i = 0; i < device_->platformsCount; i++) {
+    device_->platformList[i]->onLoopEnd();
+  }
 }
 
-void IODispatcher::lock(IOCapability *capability) {
+void IODispatcher::lock(IOFeature *capability) {
   active_ = capability;
 }
 
@@ -34,9 +38,9 @@ void IODispatcher::unlock() {
   active_ = nullptr;
 }
 
- void IODispatcher::runAction_(IORequest* request, IOCapability* target) {
+ void IODispatcher::runAction_(IORequest* request, IOFeature* target) {
   IOActionRequest* action = new IOActionRequest(request);
-  bool success = target->handleAction(action);
+  bool success = target->onAction(action);
   if (!action->sent()) {
     action->replyStatus(success);
   }

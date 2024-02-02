@@ -6,7 +6,7 @@
 class IODispatcher : public IORequestListener {
   public:
     // Initializes the IODevice
-    IODevice* init();
+    IODevice* setup();
 
     // Handles incoming IORequest
     void onRequest(IORequest* request) override;
@@ -14,15 +14,15 @@ class IODispatcher : public IORequestListener {
     // Primary handler for processing
     void handle();
 
-    // Locks a specific IOCapability
-    void lock(IOCapability *capability);
+    // Locks a specific IOFeature
+    void lock(IOFeature *capability);
 
-    // Unlocks the currently active IOCapability
+    // Unlocks the currently active IOFeature
     void unlock();
 
   private:
-      IODevice* capabilities_ = nullptr;
-      IOCapability* active_ = nullptr;
+      IODevice* device_ = nullptr;
+      IOFeature* active_ = nullptr;
 
-      void runAction_(IORequest* request, IOCapability* target);
+      void runAction_(IORequest* request, IOFeature* target);
 };

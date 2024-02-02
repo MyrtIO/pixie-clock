@@ -1,7 +1,5 @@
 #include "serial_provider.h"
 
-#ifdef 
-
 SerialRequestProvider::SerialRequestProvider(Stream* serial) {
   serial_ = serial;
 }

@@ -1,26 +1,27 @@
 #include <MyrtIO.h>
 #include <MyrtIO/serial_provider.h>
 #include <platform.h>
-#include <capabilities.h>
+#include <features.h>
 
 SerialRequestProvider serialProvider(&Serial);
 IODispatcher io;
 
 void setup() {
-  Serial.begin(9600);
-  serialProvider.setup();
   serialProvider.setListener(&io);
-  io.init()
-    ->platform(
+  Serial.begin(9600);
+  io.setup()
+    ->platforms(
       IO_INJECT(LEDPlatform),
       IO_INJECT(RTCPlatform)
     )
-    ->capabilities(
-      IO_INJECT(ClockCapability),
-      IO_INJECT(PersistentConfigCapability)
+    ->features(
+      IO_INJECT(ClockFeature),
+      IO_INJECT(IndicatorsFeature),
+      IO_INJECT(StopwatchFeature)
+      // IO_INJECT(PersistentConfigCapability)
     )
-    ->defaultCapability(
-      IO_INJECT(ClockCapability)
+    ->defaultFeature(
+      IO_INJECT(ClockFeature)
     );
 }
 

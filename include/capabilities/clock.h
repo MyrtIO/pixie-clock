@@ -1,3 +1,3 @@
 #pragma once
 
-#include "../src/capabilities/clock/clock.h"
+#include "../src/features/clock/clock.h"

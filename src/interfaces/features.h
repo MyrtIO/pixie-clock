@@ -2,9 +2,10 @@
 
 #include <stdint.h>
 
-enum CapabilityCode : uint8_t {
+enum FeatureCode : uint8_t {
   Clock = 0,
   Indicators = 1,
+  Stopwatch = 2,
 };
 
 enum ClockAction : uint8_t {
@@ -12,6 +13,6 @@ enum ClockAction : uint8_t {
 };
 
 enum IndicatorsAction : uint8_t {
-  SetColor = 1,
-  SetBrightness = 2
+  SetColor = 0,
+  SetBrightness = 1,
 };

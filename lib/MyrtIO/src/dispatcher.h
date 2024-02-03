@@ -3,7 +3,7 @@
 #include "request.h"
 #include "device.h"
 
-class IODispatcher : public IORequestListener {
+class IODispatcher : public IORequestListener, public IOFeatureController {
   public:
     // Initializes the IODevice
     IODevice* setup();
@@ -14,11 +14,9 @@ class IODispatcher : public IORequestListener {
     // Primary handler for processing
     void handle();
 
-    // Locks a specific IOFeature
-    void lock(IOFeature *capability);
+    void setActive(uint8_t code);
 
-    // Unlocks the currently active IOFeature
-    void unlock();
+    void unsetActive();
 
   private:
       IODevice* device_ = nullptr;

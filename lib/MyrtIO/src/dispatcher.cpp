@@ -24,23 +24,34 @@ void IODispatcher::handle() {
   for (uint8_t i = 0; i < device_->platformsCount; i++) {
     device_->platformList[i]->onLoopStart();
   }
-  device_->idleFeature->onTask();
+
+  if (active_ == nullptr) {
+    device_->idleFeature->onTask();
+  } else {
+    active_->onTask();
+  }
+
   for (uint8_t i = 0; i < device_->platformsCount; i++) {
     device_->platformList[i]->onLoopEnd();
   }
 }
 
-void IODispatcher::lock(IOFeature *capability) {
-  active_ = capability;
+void IODispatcher::setActive(uint8_t code) {
+  for (uint8_t i = 0; i < device_->featuresCount; i++) {
+    if (device_->featureList[i]->code() == code) {
+      active_ = device_->featureList[i];
+      return;
+    }
+  }
 }
 
-void IODispatcher::unlock() {
+void IODispatcher::unsetActive() {
   active_ = nullptr;
 }
 
  void IODispatcher::runAction_(IORequest* request, IOFeature* target) {
   IOActionRequest* action = new IOActionRequest(request);
-  bool success = target->onAction(action);
+  bool success = target->onAction(action, this);
   if (!action->sent()) {
     action->replyStatus(success);
   }

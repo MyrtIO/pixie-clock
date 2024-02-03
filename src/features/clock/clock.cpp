@@ -12,10 +12,13 @@ void ClockFeature::onTask() {
   leds_->setDigits(targetHour_, targetMinute_);
 }
 
-bool ClockFeature::onAction(IOActionRequest* request) {
+bool ClockFeature::onAction(IOActionRequest* request, IOFeatureController* controller) {
   switch (request->action) {
   case ClockAction::SetTime:
     return handleSetTime_(request);
+  case ClockAction::ActivateClockFeature:
+    controller->setActive(code());
+    return true;
   }
   return false;
 }

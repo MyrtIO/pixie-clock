@@ -6,7 +6,8 @@ constexpr size_t kSmoothTransitionDuration = 500;
 Progress smoothProgress;
 
 bool renderSmoothEffect(CRGB* pixels, LEDState* state) {
-  if (state->currentDigits == state->targetDigits) {
+  bool sameColor = state->currentColor == state->targetColor;
+  if (sameColor && state->currentDigits == state->targetDigits) {
     return false;
   }
   // Start animation
@@ -22,11 +23,12 @@ bool renderSmoothEffect(CRGB* pixels, LEDState* state) {
       pixels[state->targetDigits.matrixIndex(i)] = state->targetColor;
     }
     state->currentDigits = state->targetDigits;
+    state->currentColor = state->targetColor;
     state->animating = false;
   }
 
   for (uint8_t i = 0; i < 4; i++) {
-    if (state->currentDigits.values_[i] == state->targetDigits.values_[i]) {
+    if (sameColor && state->currentDigits.values_[i] == state->targetDigits.values_[i]) {
       continue;
     }
     if (progress < 128) {
@@ -35,7 +37,7 @@ bool renderSmoothEffect(CRGB* pixels, LEDState* state) {
     } else {
       // Show target values on second half
       pixels[state->currentDigits.matrixIndex(i)] = CRGB::Black;
-      pixels[state->targetDigits.matrixIndex(i)] = blend(CRGB::Black, state->currentColor, (progress - 128) * 2);
+      pixels[state->targetDigits.matrixIndex(i)] = blend(CRGB::Black, state->targetColor, (progress - 128) * 2);
     }
   }
   return true;

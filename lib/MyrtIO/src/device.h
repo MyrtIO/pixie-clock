@@ -14,11 +14,17 @@ class IOPlatform {
     virtual void onLoopEnd() = 0;
 };
 
+class IOFeatureController {
+public:
+  virtual void setActive(uint8_t code) = 0;
+  virtual void unsetActive() = 0;
+};
+
 class IOFeature {
   public:
     virtual void onTask() = 0;
     virtual uint8_t code() = 0;
-    virtual bool onAction(IOActionRequest* request) = 0;
+    virtual bool onAction(IOActionRequest* request, IOFeatureController* controller) = 0;
 };
 
 class IODevice {

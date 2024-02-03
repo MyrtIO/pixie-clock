@@ -15,7 +15,7 @@ void IndicatorsFeature::onTask() {
 }
 
 // Handles action requests and performs actions based on the request.
-bool IndicatorsFeature::onAction(IOActionRequest* request) {
+bool IndicatorsFeature::onAction(IOActionRequest* request, IOFeatureController* controller) {
   switch (request->action) {
     case IndicatorsAction::SetColor:
       return handleSetColor_(request);

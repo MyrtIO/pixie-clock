@@ -16,7 +16,7 @@ class IndicatorsFeature : public IOFeature {
 
     // Handles action requests and performs actions based on the request.
     // Returns true if the action was successfully handled, false otherwise.
-    bool onAction(IOActionRequest* request);
+    bool onAction(IOActionRequest* request, IOFeatureController* controller);
 
   private:
     LEDPlatform* leds_ = IO_INJECT(LEDPlatform);

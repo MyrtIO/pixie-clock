@@ -17,7 +17,13 @@ void StopwatchFeature::onTask() {
   leds_->setDigits(minutes, seconds);
 }
 
-bool StopwatchFeature::onAction(IOActionRequest* request) {
+bool StopwatchFeature::onAction(IOActionRequest* request, IOFeatureController* controller) {
+  switch (request->action) {
+  case StopwatchAction::ActivateStopwatchFeature:
+    startTime_ = 0;
+    controller->setActive(code());
+    return true;
+  }
   return false;
 }
 

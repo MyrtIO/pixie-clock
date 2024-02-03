@@ -9,10 +9,15 @@ enum FeatureCode : uint8_t {
 };
 
 enum ClockAction : uint8_t {
-  SetTime = 0,
+  ActivateClockFeature = 0,
+  SetTime = 1,
 };
 
 enum IndicatorsAction : uint8_t {
   SetColor = 0,
   SetBrightness = 1,
+};
+
+enum StopwatchAction : uint8_t {
+  ActivateStopwatchFeature = 0,
 };

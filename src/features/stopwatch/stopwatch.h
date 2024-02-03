@@ -16,7 +16,7 @@ public:
   uint8_t code();
 
   // Handles action requests
-  bool onAction(IOActionRequest* request);
+  bool onAction(IOActionRequest* request, IOFeatureController* controller);
 
 private:
   LEDPlatform* leds_ = IO_INJECT(LEDPlatform);

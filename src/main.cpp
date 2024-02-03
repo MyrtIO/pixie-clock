@@ -15,10 +15,10 @@ void setup() {
       IO_INJECT(RTCPlatform)
     )
     ->features(
+      IO_INJECT(SystemFeature),
       IO_INJECT(ClockFeature),
       IO_INJECT(IndicatorsFeature),
       IO_INJECT(StopwatchFeature)
-      // IO_INJECT(PersistentConfigCapability)
     )
     ->defaultFeature(
       IO_INJECT(ClockFeature)

@@ -13,6 +13,14 @@ void LEDPlatform::onLoopStart() {
   // Do nothing
 }
 
+CRGB LEDPlatform::getColor() {
+  return pixels_.state()->currentColor;
+}
+
+uint8_t LEDPlatform::brightness() {
+  return brightness_.current();
+}
+
 // Implementation of the function called at the end of each loop iteration to handle LEDs.
 void LEDPlatform::onLoopEnd() {
   leds_.handle();

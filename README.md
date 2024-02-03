@@ -1,6 +1,12 @@
 # Pixie Clock
 
-Custom firmware for Amperka [Nixie clock](http://wiki.amperka.ru/nixie).
+Custom MyrtIO powered firmware for Amperka [Nixie clock](http://wiki.amperka.ru/nixie).
+
+## Build
+
+```sh
+make build
+```
 
 ## Install
 

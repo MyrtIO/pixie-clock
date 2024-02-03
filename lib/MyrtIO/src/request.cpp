@@ -11,6 +11,10 @@ uint8_t IORequest::length() {
   return payloadLength_;
 }
 
+bool IORequest::sent() {
+  return sent_;
+}
+
 uint8_t* IORequest::payload() {
   return payload_;
 }
@@ -23,6 +27,14 @@ IORequest* IORequest::response() {
 IORequest* IORequest::append(uint8_t value) {
   message_[IO_PROTOCOL_HEADER_LENGTH + payloadLength_] = value;
   payloadLength_ += 1;
+  return this;
+}
+
+IORequest* IORequest::append(const char* value) {
+  uint8_t length = strlen(value);
+  for (uint8_t i = 0; i < length; i++) {
+    append(value[i]);
+  }
   return this;
 }
 

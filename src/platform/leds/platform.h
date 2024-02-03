@@ -23,6 +23,9 @@ class LEDPlatform : public IOPlatform, public ILEDPlatform {
     // Set the color for the LEDs.
     void setDigitsColor(uint8_t r, uint8_t g, uint8_t b);
 
+    CRGB getColor();
+    uint8_t brightness();
+
     // Set the overall brightness of the LEDs.
     void setBrightness(uint8_t brightness);
 

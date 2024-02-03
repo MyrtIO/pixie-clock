@@ -4,10 +4,7 @@ uint8_t IndicatorsFeature::code() {
   return FeatureCode::Indicators;
 }
 
-// Constructor implementation if applicable
-IndicatorsFeature::IndicatorsFeature() {
-  // Initialize any member variables if needed
-}
+IndicatorsFeature::IndicatorsFeature() {}
 
 // Function that runs as a background task.
 void IndicatorsFeature::onTask() {
@@ -21,6 +18,10 @@ bool IndicatorsFeature::onAction(IOActionRequest* request, IOFeatureController* 
       return handleSetColor_(request);
     case IndicatorsAction::SetBrightness:
       return handleSetBrightness_(request);
+    case IndicatorsAction::GetColor:
+      return handleGetColor_(request);
+    case IndicatorsAction::GetBrightness:
+      return handleGetColor_(request);
   }
   return false; // Unknown action, return false
 }
@@ -41,4 +42,29 @@ bool IndicatorsFeature::handleSetBrightness_(IOActionRequest* request) {
   }
   leds_->setBrightness(request->payload[0]);
   return true; // Successfully set brightness
+}
+
+bool IndicatorsFeature::handleGetColor_(IOActionRequest* request) {
+  if (request->length != 0) {
+    return false;
+  }
+  CRGB color = leds_->getColor();
+  request
+    ->startReply(true)
+    ->append(color.r)
+    ->append(color.g)
+    ->append(color.b)
+    ->flush();
+  return true;
+}
+
+bool IndicatorsFeature::handleGetBrightness_(IOActionRequest* request) {
+  if (request->length != 0) {
+    return false;
+  }
+  request
+    ->startReply(true)
+    ->append(leds_->brightness())
+    ->flush();
+  return true;
 }

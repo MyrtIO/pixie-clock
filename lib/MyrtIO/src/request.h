@@ -29,6 +29,8 @@ class IORequest {
     uint8_t* payload();
     IORequest* response();
     IORequest* append(uint8_t value);
+    IORequest* append(const char* value);
+    bool sent();
     void flush();
     virtual void flushMessage(uint8_t* message, uint8_t messageLength) = 0;
 

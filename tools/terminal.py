@@ -60,6 +60,8 @@ class MyrtIOAPI:
 api = MyrtIOAPI('/dev/cu.wchusbserial14320', 9600)
 while True:
   value = input("Command: ")
+  # args = value.split(" ")
+  # sub_args =
   numbers = list(map(int, value.split(" ")))
   api.send(numbers)
 

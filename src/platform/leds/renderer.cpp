@@ -10,7 +10,12 @@ void LEDRenderer::setup(ILEDEffectRenderer render) {
 
 // Implementation of the public method to handle a frame of animation and rendering.
 bool LEDRenderer::handleFrame() {
-  return render_(&digits_[0], &state_);
+  return render_(&digits_[0], state());
+}
+
+// Implementation of the public method to handle a frame of animation and rendering.
+LEDState* LEDRenderer::state() {
+  return &state_;
 }
 
 // Implementation of the public method to set the rendering effect for the LED matrix.

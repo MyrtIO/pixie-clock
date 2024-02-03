@@ -3,9 +3,15 @@
 #include <stdint.h>
 
 enum FeatureCode : uint8_t {
-  Clock = 0,
-  Indicators = 1,
-  Stopwatch = 2,
+  System = 0,
+  Clock = 1,
+  Indicators = 2,
+  Stopwatch = 3,
+};
+
+enum SystemAction : uint8_t {
+  Ping = 0,
+  GetName = 1,
 };
 
 enum ClockAction : uint8_t {
@@ -16,6 +22,8 @@ enum ClockAction : uint8_t {
 enum IndicatorsAction : uint8_t {
   SetColor = 0,
   SetBrightness = 1,
+  GetColor = 2,
+  GetBrightness = 3,
 };
 
 enum StopwatchAction : uint8_t {

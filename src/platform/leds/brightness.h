@@ -14,6 +14,8 @@ class SmoothBrightness : public IRenderer {
     // Set the target brightness level immediately without transition.
     void setBrightnessImmediately(uint8_t value);
 
+    uint8_t current();
+
   private:
     uint8_t current_ = 255;
     uint8_t previous_ = 255;

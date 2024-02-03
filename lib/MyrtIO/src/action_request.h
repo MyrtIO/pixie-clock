@@ -26,7 +26,7 @@ class IOActionRequest {
     }
 
     bool sent() {
-      return sent_;
+      return request_->sent();
     }
 
     void replyStatus(bool success) {
@@ -37,7 +37,13 @@ class IOActionRequest {
         ->flush();
     }
 
+    IORequest* startReply(bool success) {
+      return request_->response()
+        ->append(capability)
+        ->append(action)
+        ->append(success ? IOActionsStatus::Success : IOActionsStatus::Error);
+    }
+
   private:
     IORequest* request_;
-    bool sent_ = false;
 };

@@ -26,6 +26,8 @@ class LEDRenderer : public IRenderer {
     // Set the color for the LED matrix.
     void setColor(uint8_t r, uint8_t g, uint8_t b);
 
+    LEDState* state();
+
   private:
     ILEDEffectRenderer render_ = nullptr;
     CRGB digits_[kDigitsMatrixSize];

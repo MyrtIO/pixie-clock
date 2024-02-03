@@ -5,27 +5,18 @@
 #include "interfaces/features.h"
 
 class IndicatorsFeature : public IOFeature {
-  public:
-    // Constructor
-    IndicatorsFeature();
+public:
+  IndicatorsFeature();
 
-    // Function that runs as a background task.
-    void onTask();
+  uint8_t code();
+  void onTask();
+  bool onAction(IOActionRequest* request, IOFeatureController* controller);
 
-    uint8_t code();
+private:
+  LEDPlatform* leds_ = IO_INJECT(LEDPlatform);
 
-    // Handles action requests and performs actions based on the request.
-    // Returns true if the action was successfully handled, false otherwise.
-    bool onAction(IOActionRequest* request, IOFeatureController* controller);
-
-  private:
-    LEDPlatform* leds_ = IO_INJECT(LEDPlatform);
-
-    // Private method to handle setting LED color based on the request.
-    // Returns true if the color was successfully set, false otherwise.
-    bool handleSetColor_(IOActionRequest* request);
-
-    // Private method to handle setting LED brightness based on the request.
-    // Returns true if the brightness was successfully set, false otherwise.
-    bool handleSetBrightness_(IOActionRequest* request);
+  bool handleSetColor_(IOActionRequest* request);
+  bool handleSetBrightness_(IOActionRequest* request);
+  bool handleGetColor_(IOActionRequest* request);
+  bool handleGetBrightness_(IOActionRequest* request);
 };

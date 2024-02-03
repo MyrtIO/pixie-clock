@@ -31,3 +31,7 @@ void SmoothBrightness::setBrightnessImmediately(uint8_t value) {
   mustRender_ = true;
   LEDS.setBrightness(value);
 }
+
+uint8_t SmoothBrightness::current() {
+  return current_;
+}

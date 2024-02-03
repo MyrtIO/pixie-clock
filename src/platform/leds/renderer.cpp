@@ -3,7 +3,8 @@
 
 // Implementation of the setup function to initialize the LED matrix and set the rendering effect.
 void LEDRenderer::setup(ILEDEffectRenderer render) {
-  FastLED.addLeds<WS2811, GPIO_PIN_LED_MATRIX, GRB>(digits_, kDigitsMatrixSize);
+  LEDS.addLeds<WS2812B, GPIO_PIN_LED_MATRIX, GRB>(digits_, kDigitsMatrixSize);
+  LEDS.setCorrection(TypicalPixelString);
   setEffect(render);
 }
 

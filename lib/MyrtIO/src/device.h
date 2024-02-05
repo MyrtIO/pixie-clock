@@ -23,6 +23,7 @@ public:
 class IOFeature {
   public:
     virtual void onTask() = 0;
+    virtual void setup() = 0;
     virtual uint8_t code() = 0;
     virtual bool onAction(IOActionRequest* request, IOFeatureController* controller) = 0;
 };
@@ -66,6 +67,7 @@ class IODevice {
 
   private:
     bool addFeature_(IOFeature* c) {
+      c->setup();
       if (featuresCount >= IO_DEVICE_MAX_FEATURES) {
         // TODO: add handling
         return false;

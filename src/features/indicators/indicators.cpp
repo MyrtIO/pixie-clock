@@ -4,6 +4,12 @@ uint8_t IndicatorsFeature::code() {
   return FeatureCode::Indicators;
 }
 
+void IndicatorsFeature::setup() {
+  storage_->append(&stateDescriptor_);
+  leds_->setDigitsColor(state_.color[0], state_.color[1], state_.color[2]);
+  leds_->setBrightness(state_.brightness);
+}
+
 IndicatorsFeature::IndicatorsFeature() {}
 
 // Function that runs as a background task.
@@ -21,26 +27,34 @@ bool IndicatorsFeature::onAction(IOActionRequest* request, IOFeatureController* 
     case IndicatorsAction::GetColor:
       return handleGetColor_(request);
     case IndicatorsAction::GetBrightness:
-      return handleGetColor_(request);
+      return handleGetBrightness_(request);
+    case IndicatorsAction::SetPower:
+      return handleSetPower_(request);
+    case IndicatorsAction::GetPower:
+      return handleGetPower_(request);
   }
-  return false; // Unknown action, return false
+  return false; // Unknown action
 }
 
 // Private method to handle setting LED color based on the request.
 bool IndicatorsFeature::handleSetColor_(IOActionRequest* request) {
   if (request->length != 3) {
-    return false; // Invalid payload length, return false
+    return false; // Invalid payload length
   }
   leds_->setDigitsColor(request->payload[0], request->payload[1], request->payload[2]);
-  return true; // Successfully set color
+  copyColor(request->payload, state_.color);
+  stateDescriptor_.update();
+  return true;
 }
 
 // Private method to handle setting LED brightness based on the request.
 bool IndicatorsFeature::handleSetBrightness_(IOActionRequest* request) {
   if (request->length != 1) {
-    return false; // Invalid payload length, return false
+    return false; // Invalid payload length
   }
   leds_->setBrightness(request->payload[0]);
+  state_.brightness = request->payload[0];
+  stateDescriptor_.update();
   return true; // Successfully set brightness
 }
 
@@ -48,12 +62,11 @@ bool IndicatorsFeature::handleGetColor_(IOActionRequest* request) {
   if (request->length != 0) {
     return false;
   }
-  CRGB color = leds_->getColor();
   request
     ->startReply(true)
-    ->append(color.r)
-    ->append(color.g)
-    ->append(color.b)
+    ->append(state_.color[0])
+    ->append(state_.color[1])
+    ->append(state_.color[2])
     ->flush();
   return true;
 }
@@ -64,7 +77,26 @@ bool IndicatorsFeature::handleGetBrightness_(IOActionRequest* request) {
   }
   request
     ->startReply(true)
-    ->append(leds_->brightness())
+    ->append(state_.brightness)
+    ->flush();
+  return true;
+}
+
+bool IndicatorsFeature::handleSetPower_(IOActionRequest* request) {
+  if (request->length != 1 || request->payload[0] > 1) {
+    return false;
+  }
+  leds_->setPower(request->payload[0]);
+  return true;
+}
+
+bool IndicatorsFeature::handleGetPower_(IOActionRequest* request) {
+  if (request->length != 0) {
+    return false;
+  }
+  request
+    ->startReply(true)
+    ->append(leds_->getPower() ? 1 : 0)
     ->flush();
   return true;
 }

@@ -40,3 +40,12 @@ void LEDPlatform::setDigitsColor(uint8_t r, uint8_t g, uint8_t b) {
 void LEDPlatform::setBrightness(uint8_t brightness) {
   brightness_.setBrightness(brightness);
 }
+
+// Implementation of the public method to set power status of the LEDs.
+void LEDPlatform::setPower(bool enabled) {
+  pixels_.setPower(enabled);
+}
+
+bool LEDPlatform::getPower() {
+  return pixels_.state()->enabled;
+}

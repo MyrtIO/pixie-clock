@@ -24,6 +24,8 @@ enum IndicatorsAction : uint8_t {
   SetBrightness = 1,
   GetColor = 2,
   GetBrightness = 3,
+  SetPower = 4,
+  GetPower = 5,
 };
 
 enum StopwatchAction : uint8_t {

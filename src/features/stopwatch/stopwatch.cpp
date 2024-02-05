@@ -2,6 +2,10 @@
 
 StopwatchFeature::StopwatchFeature() {}
 
+void StopwatchFeature::setup() {
+  // Do nothing
+}
+
 uint8_t StopwatchFeature::code() {
   return FeatureCode::Stopwatch;
 }

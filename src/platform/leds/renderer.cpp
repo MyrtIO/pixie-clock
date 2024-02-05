@@ -34,3 +34,8 @@ void LEDRenderer::setColor(uint8_t r, uint8_t g, uint8_t b) {
   state_.targetColor.g = g;
   state_.targetColor.b = b;
 }
+
+// Implementation of the public method to set power status of the LEDs.
+void LEDRenderer::setPower(bool enabled) {
+  state_.enabled = enabled;
+}

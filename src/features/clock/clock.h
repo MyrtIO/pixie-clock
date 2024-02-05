@@ -10,6 +10,8 @@ public:
 
   ClockFeature();
 
+  void setup() override;
+
   // Handles the primary tasks
   void onTask();
 

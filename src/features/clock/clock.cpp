@@ -2,6 +2,10 @@
 
 ClockFeature::ClockFeature() {}
 
+void ClockFeature::setup() {
+  // Do nothing
+}
+
 uint8_t ClockFeature::code() {
   return FeatureCode::Clock;
 }

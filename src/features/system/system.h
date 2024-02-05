@@ -9,6 +9,7 @@ class SystemFeature : public IOFeature {
 public:
 
   SystemFeature();
+  void setup() override;
 
   // Handles the primary tasks
   void onTask();

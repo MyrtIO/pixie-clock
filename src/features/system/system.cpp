@@ -3,6 +3,10 @@
 
 SystemFeature::SystemFeature() {}
 
+void SystemFeature::setup() {
+  // Do nothing
+}
+
 uint8_t SystemFeature::code() {
   return FeatureCode::System;
 }

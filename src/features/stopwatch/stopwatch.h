@@ -9,6 +9,7 @@ class StopwatchFeature : public IOFeature {
 public:
 
   StopwatchFeature();
+  void setup() override;
 
   // Handles the primary tasks
   void onTask();

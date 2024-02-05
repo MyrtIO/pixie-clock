@@ -29,6 +29,11 @@ class LEDPlatform : public IOPlatform, public ILEDPlatform {
     // Set the overall brightness of the LEDs.
     void setBrightness(uint8_t brightness);
 
+    // Set power status of the LEDs.
+    void setPower(bool enabled);
+
+    bool getPower();
+
   private:
     LEDBee leds_;
     SmoothBrightness brightness_;

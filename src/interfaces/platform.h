@@ -1,6 +1,7 @@
 #pragma once
 
 #include <stdint.h>
+#include <stored.h>
 
 class ILEDPlatform {
   public:
@@ -18,7 +19,7 @@ class IRTCPlatform {
     virtual void setTime(uint8_t hours, uint8_t minutes, uint8_t seconds);
 };
 
-// class IButtonPlatform {
-//   public:
-// };
-
+class IStoragePlatform {
+  public:
+    virtual bool append(Stored *value) = 0;
+};

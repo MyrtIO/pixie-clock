@@ -12,7 +12,8 @@ void setup() {
   io.setup()
     ->platforms(
       IO_INJECT(LEDPlatform),
-      IO_INJECT(RTCPlatform)
+      IO_INJECT(RTCPlatform),
+      IO_INJECT(StoragePlatform)
     )
     ->features(
       IO_INJECT(SystemFeature),

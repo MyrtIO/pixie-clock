@@ -2,6 +2,7 @@
 
 // Implementation of the setup function to initialize the LED platform.
 void LEDPlatform::setup() {
+  sleep_.start(&brightness_);
   pixels_.setup(renderSmoothEffect);
   leds_.init()
     ->pixels(&pixels_)
@@ -10,7 +11,7 @@ void LEDPlatform::setup() {
 
 // Implementation of the function called at the start of each loop iteration.
 void LEDPlatform::onLoopStart() {
-  // Do nothing
+  sleep_.handle();
 }
 
 CRGB LEDPlatform::getColor() {
@@ -48,4 +49,8 @@ void LEDPlatform::setPower(bool enabled) {
 
 bool LEDPlatform::getPower() {
   return pixels_.state()->enabled;
+}
+
+void LEDPlatform::handlePing() {
+  sleep_.awake();
 }

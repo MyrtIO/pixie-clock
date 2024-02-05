@@ -18,6 +18,7 @@ void SystemFeature::onTask() {
 bool SystemFeature::onAction(IOActionRequest* request, IOFeatureController* controller) {
   switch (request->action) {
   case SystemAction::Ping:
+    leds_->handlePing();
     return true;
   case SystemAction::GetName:
     return handleGetName_(request);

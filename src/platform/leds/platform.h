@@ -5,6 +5,7 @@
 #include "interfaces/platform.h"
 #include "brightness.h"
 #include "renderer.h"
+#include "sleep.h"
 
 class LEDPlatform : public IOPlatform, public ILEDPlatform {
   public:
@@ -34,8 +35,11 @@ class LEDPlatform : public IOPlatform, public ILEDPlatform {
 
     bool getPower();
 
+    void handlePing();
+
   private:
     LEDBee leds_;
     SmoothBrightness brightness_;
     LEDRenderer pixels_;
+    SleepListener sleep_;
 };

@@ -3,7 +3,7 @@
 #include <Timer.h>
 #include "brightness.h"
 
-constexpr uint8_t kSleepBrightness = 25;
+constexpr uint8_t kSleepBrightness = 240;
 constexpr size_t kSleepTimeout = 15000;
 
 class SleepListener {

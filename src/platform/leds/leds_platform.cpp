@@ -3,7 +3,7 @@
 // Implementation of the setup function to initialize the LED platform.
 void LEDPlatform::setup() {
   sleep_.start(&brightness_);
-  pixels_.setup(renderSmoothEffect);
+  pixels_.setup(renderZoomEffect);
   leds_.init()
     ->pixels(&pixels_)
     ->brightness(&brightness_);

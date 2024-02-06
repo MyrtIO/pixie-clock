@@ -5,9 +5,6 @@
 #include "effects/effects.h"
 #include "pins.h"
 
-// 4 segments with 10 digits
-constexpr uint8_t kDigitsMatrixSize = 40;
-
 class LEDRenderer : public IRenderer {
   public:
     // Setup function to initialize the LED matrix and set the rendering effect.

@@ -1,9 +1,8 @@
 #include "effects.h"
 #include <Progress.h>
+#include "utils.h"
 
 constexpr size_t kSmoothTransitionDuration = 500;
-
-Progress smoothProgress;
 
 bool renderSmoothEffect(CRGB* pixels, LEDState* state) {
   CRGB targetColor = state->finalTargetColor();
@@ -15,18 +14,16 @@ bool renderSmoothEffect(CRGB* pixels, LEDState* state) {
   // Start animation
   if (!state->animating) {
     state->animating = true;
-    smoothProgress.start(kSmoothTransitionDuration);
+    effectProgress.start(kSmoothTransitionDuration);
   }
-  uint8_t progress = smoothProgress.get();
+  uint8_t progress = effectProgress.get();
   // Handle finish
   if (progress == 255) {
-    for (uint8_t i = 0; i < 4; i++) {
-      pixels[state->currentDigits.matrixIndex(i)] = CRGB::Black;
-      pixels[state->targetDigits.matrixIndex(i)] = targetColor;
-    }
+    forceApply(pixels, &state->targetDigits, targetColor);
     state->currentDigits = state->targetDigits;
     state->currentColor = targetColor;
     state->animating = false;
+    return true;
   }
 
   for (uint8_t i = 0; i < 4; i++) {

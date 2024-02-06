@@ -12,9 +12,9 @@ class Progress {
     uint8_t get() {
       now_ = millis();
       if (now_ >= end_) {
-        return 255;
+        return max_;
       }
-      return map(now_, start_, end_, 0, 255);
+      return map(now_, start_, end_, 0, max_);
     }
 
     void start(size_t ms) {
@@ -22,8 +22,13 @@ class Progress {
       end_ = start_ + ms;
     }
 
+    void setMax(uint8_t max) {
+      max_ = max;
+    }
+
   private:
     uint32_t start_ = 0;
     uint32_t end_ = 0;
     uint32_t now_ = 0;
+    uint8_t max_ = 255;
 };

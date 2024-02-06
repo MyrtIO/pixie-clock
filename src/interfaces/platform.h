@@ -10,6 +10,7 @@ class ILEDPlatform {
     virtual void setBrightness(uint8_t brightness) = 0;
     virtual bool getPower() = 0;
     virtual void setPower(bool status) = 0;
+    virtual void setEffect(uint8_t effectCode) = 0;
     virtual void handlePing() = 0;
 };
 

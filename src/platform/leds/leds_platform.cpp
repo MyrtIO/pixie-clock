@@ -1,4 +1,5 @@
 #include "leds_platform.h"
+#include "interfaces/effects.h"
 
 // Implementation of the setup function to initialize the LED platform.
 void LEDPlatform::setup() {
@@ -49,6 +50,22 @@ void LEDPlatform::setPower(bool enabled) {
 
 bool LEDPlatform::getPower() {
   return pixels_.state()->enabled;
+}
+
+void LEDPlatform::setEffect(uint8_t effectCode) {
+  switch (effectCode) {
+  case LEDEffect::EffectStatic:
+    pixels_.setEffect(renderStaticEffect);
+    break;
+  case LEDEffect::EffectSmooth:
+    pixels_.setEffect(renderSmoothEffect);
+    break;
+  case LEDEffect::EffectZoom:
+    pixels_.setEffect(renderZoomEffect);
+    break;
+  default:
+    break;
+  }
 }
 
 void LEDPlatform::handlePing() {

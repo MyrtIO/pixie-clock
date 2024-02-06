@@ -32,6 +32,10 @@ bool IndicatorsFeature::onAction(IOActionRequest* request, IOFeatureController* 
       return handleSetPower_(request);
     case IndicatorsAction::GetPower:
       return handleGetPower_(request);
+    case IndicatorsAction::SetEffect:
+      return handleSetEffect_(request);
+    case IndicatorsAction::GetEffect:
+      return handleGetEffect_(request);
   }
   return false; // Unknown action
 }
@@ -98,5 +102,24 @@ bool IndicatorsFeature::handleGetPower_(IOActionRequest* request) {
     ->startReply(true)
     ->append(leds_->getPower() ? 1 : 0)
     ->flush();
+  return true;
+}
+
+bool IndicatorsFeature::handleGetEffect_(IOActionRequest* request) {
+  if (request->length != 0) {
+    return false;
+  }
+  request
+    ->startReply(true)
+    ->append(state_.effect)
+    ->flush();
+  return true;
+}
+
+bool IndicatorsFeature::handleSetEffect_(IOActionRequest* request) {
+  if (request->length != 1) {
+    return false;
+  }
+  leds_->setEffect(request->payload[0]);
   return true;
 }

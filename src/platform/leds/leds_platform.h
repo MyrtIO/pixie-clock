@@ -33,6 +33,8 @@ class LEDPlatform : public IOPlatform, public ILEDPlatform {
     // Set power status of the LEDs.
     void setPower(bool enabled);
 
+    void setEffect(uint8_t effectCode);
+
     bool getPower();
 
     void handlePing();

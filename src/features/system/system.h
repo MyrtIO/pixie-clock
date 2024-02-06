@@ -21,5 +21,5 @@ public:
 
 private:
   bool handleGetName_(IOActionRequest* request);
-  LEDPlatform* leds_ = IO_INJECT(LEDPlatform);
+  ILEDPlatform* leds_ = IO_INJECT(ILEDPlatform);
 };

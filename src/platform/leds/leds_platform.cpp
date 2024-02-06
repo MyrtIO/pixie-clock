@@ -1,4 +1,4 @@
-#include "platform.h"
+#include "leds_platform.h"
 
 // Implementation of the setup function to initialize the LED platform.
 void LEDPlatform::setup() {

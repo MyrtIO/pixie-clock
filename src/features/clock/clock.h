@@ -21,8 +21,8 @@ public:
   bool onAction(IOActionRequest* request, IOFeatureController* controller);
 
 private:
-  LEDPlatform* leds_ = IO_INJECT(LEDPlatform);
-  RTCPlatform* rtc_ = IO_INJECT(RTCPlatform);
+  ILEDPlatform* leds_ = IO_INJECT(ILEDPlatform);
+  IRTCPlatform* rtc_ = IO_INJECT(IRTCPlatform);
 
   bool handleSetTime_(IOActionRequest* request);
 };

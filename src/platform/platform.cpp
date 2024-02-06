@@ -1,5 +1,5 @@
 #include "platform.h"
 
-IO_PROVIDE(LEDPlatform);
-IO_PROVIDE(RTCPlatform);
-IO_PROVIDE(StoragePlatform);
+IO_PROVIDE_INSTANCE(ILEDPlatform, LEDPlatform);
+IO_PROVIDE_INSTANCE(IRTCPlatform, RTCPlatform);
+IO_PROVIDE_INSTANCE(IStoragePlatform, StoragePlatform);

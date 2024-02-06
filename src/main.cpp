@@ -6,24 +6,27 @@
 SerialRequestProvider serialProvider(&Serial);
 IODispatcher io;
 
+SystemFeature systemFeature;
+ClockFeature clockFeature;
+IndicatorsFeature indicatorsFeature;
+StopwatchFeature stopwatchFeature;
+
 void setup() {
   serialProvider.setListener(&io);
   Serial.begin(9600);
   io.setup()
     ->platforms(
-      IO_INJECT(LEDPlatform),
-      IO_INJECT(RTCPlatform),
-      IO_INJECT(StoragePlatform)
+      IO_INJECT_INSTANCE(LEDPlatform),
+      IO_INJECT_INSTANCE(RTCPlatform),
+      IO_INJECT_INSTANCE(StoragePlatform)
     )
     ->features(
-      IO_INJECT(SystemFeature),
-      IO_INJECT(ClockFeature),
-      IO_INJECT(IndicatorsFeature),
-      IO_INJECT(StopwatchFeature)
+      &systemFeature,
+      &clockFeature,
+      &indicatorsFeature,
+      &stopwatchFeature
     )
-    ->defaultFeature(
-      IO_INJECT(ClockFeature)
-    );
+    ->defaultFeature(&clockFeature);
 }
 
 void loop() {

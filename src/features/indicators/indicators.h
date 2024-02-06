@@ -18,8 +18,8 @@ public:
 private:
   IndicatorsState state_;
   Stored stateDescriptor_ = Stored(state_, FeatureCode::Indicators);
-  LEDPlatform* leds_ = IO_INJECT(LEDPlatform);
-  StoragePlatform* storage_ = IO_INJECT(StoragePlatform);
+  ILEDPlatform* leds_ = IO_INJECT(ILEDPlatform);
+  IStoragePlatform* storage_ = IO_INJECT(IStoragePlatform);
 
   bool handleSetColor_(IOActionRequest* request);
   bool handleSetBrightness_(IOActionRequest* request);

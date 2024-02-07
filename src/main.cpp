@@ -13,7 +13,7 @@ StopwatchFeature stopwatchFeature;
 
 void setup() {
   serialProvider.setListener(&io);
-  Serial.begin(9600);
+  Serial.begin(28800);
   io.setup()
     ->platforms(
       IO_INJECT_INSTANCE(LEDPlatform),

@@ -8,6 +8,7 @@ void IndicatorsFeature::setup() {
   storage_->append(&stateDescriptor_);
   leds_->setDigitsColor(state_.color[0], state_.color[1], state_.color[2]);
   leds_->setBrightness(state_.brightness);
+  leds_->setEffect(state_.effect);
 }
 
 IndicatorsFeature::IndicatorsFeature() {}
@@ -120,6 +121,7 @@ bool IndicatorsFeature::handleSetEffect_(IOActionRequest* request) {
   if (request->length != 1) {
     return false;
   }
+  state_.effect = request->payload[0];
   leds_->setEffect(request->payload[0]);
   return true;
 }

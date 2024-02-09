@@ -28,8 +28,8 @@ public:
     void stop();
     void read();
     void set(const char *compileTimeStamp);
-    void set(uint8_t hour, uint8_t minute, uint8_t second, uint16_t day,
-        uint8_t month, uint8_t year, uint8_t weekDay);
+    void set(uint8_t hour, uint8_t minute, uint8_t second, uint8_t day,
+        uint8_t month, uint16_t year, uint8_t weekDay);
     void setHour(int8_t hour);
     void setMinute(int8_t minute);
     void setSecond(int8_t second);

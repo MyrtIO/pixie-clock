@@ -13,8 +13,7 @@ void RTCPlatform::onLoopEnd() {
 // Implementation of the setup function to initialize the RTC and set the initial time.
 void RTCPlatform::setup() {
   clock.begin();
-  clock.read();
-  setTime(getHours(), getMinutes(), getSeconds());
+  clock.start();
 }
 
 // Implementation of the public method to set the RTC time in hours, minutes, and seconds.
